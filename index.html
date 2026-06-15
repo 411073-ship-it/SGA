@@ -1,105 +1,154 @@
 <!DOCTYPE html>
-<html lang="zh-Hant">
+<html lang="zh-TW">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>個人自我介紹</title>
-  <link rel="stylesheet" href="styles.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>英文背單字軟體</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <header class="hero">
-    <div class="hero-content">
-      <p class="eyebrow">嗨，我是</p>
-      <h1>顏梓杰</h1>
-      <p class="subtitle">一位熱愛設計與開發的創作者，致力於打造清晰、優雅且實用的網頁體驗。</p>
-      <div class="hero-buttons">
-        <a href="#about" class="button primary">關於我</a>
-        <a href="#contact" class="button secondary">聯絡我</a>
-      </div>
+    <div class="container">
+        <!-- 導航欄 -->
+        <nav class="navbar">
+            <div class="nav-content">
+                <h1 class="app-title">📚 英文背單字</h1>
+                <div class="nav-buttons">
+                    <button class="nav-btn active" data-page="learning">學習</button>
+                    <button class="nav-btn" data-page="management">管理單字</button>
+                </div>
+            </div>
+        </nav>
+
+        <!-- 學習頁面 -->
+        <div id="learning-page" class="page active">
+            <div class="learning-container">
+                <!-- 卡片容器 -->
+                <div class="card-wrapper">
+                    <div class="flashcard" id="flashcard">
+                        <div class="card-front">
+                            <div class="card-content">
+                                <p class="card-label">英文單字</p>
+                                <p class="card-word" id="card-word">Click to load</p>
+                            </div>
+                        </div>
+                        <div class="card-back">
+                            <div class="card-content">
+                                <div class="card-back-item">
+                                    <p class="back-label">中文翻譯</p>
+                                    <p class="back-text" id="card-translation">-</p>
+                                </div>
+                                <div class="card-back-item">
+                                    <p class="back-label">詞性</p>
+                                    <p class="back-text" id="card-pos">-</p>
+                                </div>
+                                <div class="card-back-item">
+                                    <p class="back-label">字根分析</p>
+                                    <p class="back-text" id="card-root">-</p>
+                                </div>
+                                <div class="card-back-item">
+                                    <p class="back-label">例句</p>
+                                    <p class="back-text" id="card-example">-</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 控制按鈕 -->
+                <div class="card-controls">
+                    <button class="control-btn" id="prev-btn">← 上一個</button>
+                    <span class="card-counter"><span id="current-index">1</span> / <span id="total-count">0</span></span>
+                    <button class="control-btn" id="next-btn">下一個 →</button>
+                </div>
+
+                <!-- 提示信息 -->
+                <div class="hint-text" id="hint-text">點擊卡片查看答案</div>
+            </div>
+        </div>
+
+        <!-- 管理頁面 -->
+        <div id="management-page" class="page">
+            <div class="management-container">
+                <h2>新增英文單字</h2>
+                
+                <!-- 表單 -->
+                <form class="word-form" id="word-form">
+                    <div class="form-group">
+                        <label for="word-input">英文單字 *</label>
+                        <div class="input-with-btn">
+                            <input 
+                                type="text" 
+                                id="word-input" 
+                                placeholder="輸入英文單字" 
+                                required
+                            >
+                            <button 
+                                type="button" 
+                                class="auto-fill-btn" 
+                                id="auto-fill-btn"
+                                title="自動填入單字資訊"
+                            >
+                                🤖 自動填入
+                            </button>
+                        </div>
+                        <small>使用 Free Dictionary API 自動填入其他欄位</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="translation-input">中文翻譯 *</label>
+                        <input 
+                            type="text" 
+                            id="translation-input" 
+                            placeholder="輸入中文翻譯" 
+                            required
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="pos-input">詞性</label>
+                        <input 
+                            type="text" 
+                            id="pos-input" 
+                            placeholder="例如: noun, verb, adjective" 
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="root-input">字根分析</label>
+                        <textarea 
+                            id="root-input" 
+                            placeholder="輸入字根分析（可選）" 
+                            rows="3"
+                        ></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="example-input">例句</label>
+                        <textarea 
+                            id="example-input" 
+                            placeholder="輸入例句（可選）" 
+                            rows="3"
+                        ></textarea>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="submit-btn">💾 儲存單字</button>
+                        <button type="reset" class="reset-btn">清空表單</button>
+                    </div>
+                </form>
+
+                <!-- 狀態提示 -->
+                <div id="form-status" class="form-status"></div>
+
+                <!-- 單字列表 -->
+                <div class="words-list-section">
+                    <h2>已新增單字 (<span id="words-count">0</span>)</h2>
+                    <div id="words-list" class="words-list"></div>
+                </div>
+            </div>
+        </div>
     </div>
-  </header>
 
-  <main>
-    <section id="about" class="section section-light">
-      <div class="container">
-        <h2>關於我</h2>
-        <p>我是一位專注於前端與使用者體驗的開發者，喜歡將複雜的想法轉化為簡單易懂的介面。擅長 HTML、CSS、JavaScript，並且熱衷於學習新的技術。</p>
-        <div class="info-grid">
-          <div>
-            <h3>專長</h3>
-            <ul>
-              <li>網站設計與排版</li>
-              <li>響應式網頁</li>
-              <li>互動效果與動畫</li>
-            </ul>
-          </div>
-          <div>
-            <h3>理念</h3>
-            <p>漂亮的網站來自簡潔的設計、良好的可讀性，以及貼近使用者需求的細節。</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="skills" class="section section-dark">
-      <div class="container">
-        <h2>技能</h2>
-        <div class="skills-list">
-          <span>HTML</span>
-          <span>CSS</span>
-          <span>JavaScript</span>
-          <span>React</span>
-          <span>Git</span>
-          <span>UI/UX</span>
-        </div>
-      </div>
-    </section>
-
-    <section id="experience" class="section section-light">
-      <div class="container">
-        <h2>經歷</h2>
-        <div class="timeline">
-          <div class="timeline-item">
-            <h3>自由接案設計師</h3>
-            <p class="timeline-date">2023 - 現在</p>
-            <p>專注於中小企業官網、品牌活動頁與商品展示頁的建置與優化。</p>
-          </div>
-          <div class="timeline-item">
-            <h3>前端開發實習</h3>
-            <p class="timeline-date">2022</p>
-            <p>參與前端專案，實作互動元件、提升網站效能與跨瀏覽器相容性。</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="contact" class="section section-dark">
-      <div class="container">
-        <h2>聯絡方式</h2>
-        <p>想合作或交流想法？歡迎透過以下方式聯絡我。</p>
-        <div class="contact-cards">
-          <div class="card">
-            <h3>Email</h3>
-            <p>youremail@example.com</p>
-          </div>
-          <div class="card">
-            <h3>LinkedIn</h3>
-            <p>linkedin.com/in/yourname</p>
-          </div>
-          <div class="card">
-            <h3>Portfolio</h3>
-            <p>yourportfolio.com</p>
-          </div>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <footer class="footer">
-    <p>© 2026 顏梓杰
-        。打造更好的網頁體驗。</p>
-  </footer>
-
-  <script src="script.js"></script>
+    <script src="app.js"></script>
 </body>
 </html>

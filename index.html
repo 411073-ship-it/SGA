@@ -3,102 +3,96 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>個人自我介紹</title>
+  <title>英文單字背誦 App</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <header class="hero">
-    <div class="hero-content">
-      <p class="eyebrow">嗨，我是</p>
-      <h1>顏梓杰</h1>
-      <p class="subtitle">一位熱愛設計與開發的創作者，致力於打造清晰、優雅且實用的網頁體驗。</p>
-      <div class="hero-buttons">
-        <a href="#about" class="button primary">關於我</a>
-        <a href="#contact" class="button secondary">聯絡我</a>
+  <div class="app-shell">
+    <header class="app-header">
+      <div>
+        <p class="app-subtitle">純前端單字背誦工具</p>
+        <h1>英文單字卡片</h1>
+        <p class="app-description">中央為翻頁單字卡，右側有管理頁面，可新增單字、查閱翻譯與例句。</p>
       </div>
-    </div>
-  </header>
+      <div class="view-switch" role="tablist" aria-label="頁面切換">
+        <button type="button" class="tab-button active" data-target="studyView" role="tab" aria-selected="true">學習</button>
+        <button type="button" class="tab-button" data-target="manageView" role="tab" aria-selected="false">管理</button>
+      </div>
+    </header>
 
-  <main>
-    <section id="about" class="section section-light">
-      <div class="container">
-        <h2>關於我</h2>
-        <p>我是一位專注於前端與使用者體驗的開發者，喜歡將複雜的想法轉化為簡單易懂的介面。擅長 HTML、CSS、JavaScript，並且熱衷於學習新的技術。</p>
-        <div class="info-grid">
-          <div>
-            <h3>專長</h3>
-            <ul>
-              <li>網站設計與排版</li>
-              <li>響應式網頁</li>
-              <li>互動效果與動畫</li>
+    <main class="app-main">
+      <section id="studyView" class="panel active" aria-labelledby="study-tab">
+        <div class="card-panel">
+          <div class="flip-card" id="flipCard" tabindex="0" aria-label="單字卡，按 Enter 鍵或點擊翻面">
+            <div class="flip-card-inner">
+              <div class="flip-card-front">
+                <div class="card-title" id="cardWord">example</div>
+                <div class="card-label">英文單字</div>
+                <div class="card-content" id="cardFrontNote">點擊卡片查看翻譯、詞性、例句與字根分析。</div>
+              </div>
+              <div class="flip-card-back">
+                <div class="card-title" id="cardTranslation">範例</div>
+                <div class="card-label">翻譯</div>
+                <div class="card-content" id="cardBackContent"></div>
+              </div>
+            </div>
+          </div>
+          <div class="hint">點擊卡片或按 Enter 翻面</div>
+        </div>
+
+        <div class="study-actions">
+          <button type="button" class="button secondary" id="prevWord">上一個</button>
+          <span id="currentInfo" class="current-info">尚無儲存單字</span>
+          <button type="button" class="button secondary" id="nextWord">下一個</button>
+        </div>
+      </section>
+
+      <section id="manageView" class="panel" aria-labelledby="manage-tab">
+        <div class="manage-panel">
+          <div class="panel-header">
+            <h2>管理單字</h2>
+            <p>新增單字或直接使用「自動填入」由 API 補全翻譯、詞性、例句與字根分析。</p>
+          </div>
+
+          <form id="wordForm" class="formula-form">
+            <label>
+              英文單字
+              <input type="text" id="englishWord" placeholder="例如：gravity" autocomplete="off" />
+            </label>
+            <label>
+              翻譯
+              <input type="text" id="translation" placeholder="自動填入翻譯" />
+            </label>
+            <label>
+              詞性
+              <input type="text" id="partOfSpeech" placeholder="自動填入詞性" />
+            </label>
+            <label>
+              例句
+              <textarea id="exampleSentence" rows="3" placeholder="自動填入例句"></textarea>
+            </label>
+            <label>
+              字根分析
+              <textarea id="rootAnalysis" rows="3" placeholder="自動填入字根分析"></textarea>
+            </label>
+
+            <div class="button-group">
+              <button type="button" id="autoFillButton" class="button primary">自動填入</button>
+              <button type="submit" class="button secondary">新增單字</button>
+            </div>
+            <div id="statusMessage" class="status-message" aria-live="polite"></div>
+          </form>
+
+          <div class="formula-list-panel">
+            <h3>已儲存單字</h3>
+            <ul id="wordList" class="formula-list">
+              <li class="empty-state">目前尚未新增單字</li>
             </ul>
           </div>
-          <div>
-            <h3>理念</h3>
-            <p>漂亮的網站來自簡潔的設計、良好的可讀性，以及貼近使用者需求的細節。</p>
-          </div>
         </div>
-      </div>
-    </section>
-
-    <section id="skills" class="section section-dark">
-      <div class="container">
-        <h2>技能</h2>
-        <div class="skills-list">
-          <span>HTML</span>
-          <span>CSS</span>
-          <span>JavaScript</span>
-          <span>React</span>
-          <span>Git</span>
-          <span>UI/UX</span>
-        </div>
-      </div>
-    </section>
-
-    <section id="experience" class="section section-light">
-      <div class="container">
-        <h2>經歷</h2>
-        <div class="timeline">
-          <div class="timeline-item">
-            <h3>自由接案設計師</h3>
-            <p class="timeline-date">2023 - 現在</p>
-            <p>專注於中小企業官網、品牌活動頁與商品展示頁的建置與優化。</p>
-          </div>
-          <div class="timeline-item">
-            <h3>前端開發實習</h3>
-            <p class="timeline-date">2022</p>
-            <p>參與前端專案，實作互動元件、提升網站效能與跨瀏覽器相容性。</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="contact" class="section section-dark">
-      <div class="container">
-        <h2>聯絡方式</h2>
-        <p>想合作或交流想法？歡迎透過以下方式聯絡我。</p>
-        <div class="contact-cards">
-          <div class="card">
-            <h3>Email</h3>
-            <p>youremail@example.com</p>
-          </div>
-          <div class="card">
-            <h3>LinkedIn</h3>
-            <p>linkedin.com/in/yourname</p>
-          </div>
-          <div class="card">
-            <h3>Portfolio</h3>
-            <p>yourportfolio.com</p>
-          </div>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <footer class="footer">
-    <p>© 2026 顏梓杰
-        。打造更好的網頁體驗。</p>
-  </footer>
+      </section>
+    </main>
+  </div>
 
   <script src="script.js"></script>
 </body>
